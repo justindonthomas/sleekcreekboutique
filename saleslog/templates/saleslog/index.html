@@ -2,40 +2,5 @@
 
 {% block content %}
 <h1>Hello World</h1>
-{% endblock %}
-
-<!-- Listing table template -->
-{% block show_listings %}
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">Item Name</th>
-      <th scope="col">Quantity</th>
-      <th scope="col">Unit Price</th>
-      <th scope="col">Total Price</th>
-      <th scope="col">End Date</th>
-      <th scope="col">Posted By</th>
-      <th scope="col">Guild</th>
-      <th scope="col">Location</th>
-    </tr>
-  </thead>
-  <tbody>
-  {% if listing %}
-  <tr>
-    <td>A Thing</td>
-    <td>2</td>
-    <td>5</td>
-    <td>10</td>
-    <td>Today</td>
-    <td>Me</td>
-    <td>My Guild</td>
-    <td>Here</td>
-  </tr>
-  {% else %}
-    <tr>
-      <td colspan="100%"> No Listings Found.</td>
-    </tr>
-  {% endif %}
-  </tbody>
-</table>
+{% include "saleslog/partials/listing_table.html" %}
 {% endblock %}
