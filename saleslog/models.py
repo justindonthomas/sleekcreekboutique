@@ -43,6 +43,7 @@ class Listing(models.Model):
   guild       Name of the selling guildstore.
   location    Name of the location of the guild trader.
   character   Name of the character selling the item.
+  posted_by   Auth user who created the listing.
   """
   item = models.ForeignKey(Item, on_delete=models.CASCADE)
   quantity = models.PositiveIntegerField(validators=[MinValueValidator(1)])
@@ -51,6 +52,7 @@ class Listing(models.Model):
   guild = models.ForeignKey(Guild, on_delete=models.DO_NOTHING, blank=True, null=True)
   location = models.ForeignKey(Location, on_delete=models.DO_NOTHING, blank=True, null=True)
   character = models.ForeignKey(Character, on_delete=models.DO_NOTHING, blank=True, null=True)
+  posted_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class Sale(models.Model):
   """
