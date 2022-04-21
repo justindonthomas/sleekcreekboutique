@@ -1,6 +1,14 @@
 {% extends "saleslog/boilerplate.html" %}
 
 {% block content %}
-<h1>Hello World</h1>
-{% include "saleslog/partials/listing_table.html" %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-auto"/>
+    <div class="col-md-auto">
+      <h1>Hello World</h1>
+      {% include "saleslog/partials/listing_table.html" %}
+    </div>
+    <div class="col-md-auto"/>
+  </row>
+</div>
 {% endblock %}
