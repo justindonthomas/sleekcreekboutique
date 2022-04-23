@@ -1,16 +1,14 @@
 {% extends "saleslog/boilerplate.html" %}
 <!-- Landing page -->
 {% block content %}
-<div class="container">
-  <div class="row d-flex justify-content-center py-3">
-    <h1>This one remembers your market listings for you slow paws...</h1>
-    <p>The Sleek Creek Boutique is a database where you can store and peruse
-      guild store listings posted by users.</p>
-  </div>
-  <div class="row d-flex justify-content-center py-3">
-    <div class="col-md-auto">
-      {% include "saleslog/partials/listing_table.html" %}
-    </div>
-  </div>
+
+<h1>This one remembers your market listings for you slow paws...</h1>
+<p>The Sleek Creek Boutique is a database where you can store and peruse
+    guild store listings posted by users.</p>
 </div>
+<div class="row d-flex justify-content-center py-3">
+<div class="col-md-auto">
+    {% include "saleslog/partials/listing_table.html" %}
+</div>
+
 {% endblock %}

@@ -1,14 +1,16 @@
 {% extends "saleslog/boilerplate.html" %}
 
 {% block content %}
-<div class="container">
-  <div class="row d-flex justify-content-center py-3">
-    <p>Add Listing Here.</p>
-  </div>
-  <div class="row d-flex justify-content-center py-3">
+
+<div class="col-md-auto">
+    <h3>Add Listing Here.</h3>
+    <table>
+        {{ form }}
+    </table>
+</div>
+</div>
+<div class="row d-flex justify-content-center py-3">
     <div class="col-md-auto">
-      {% include "saleslog/partials/listing_table.html" %}
-    </div>
-  </div>
+    {% include "saleslog/partials/listing_table.html" %}
 </div>
 {% endblock %}
