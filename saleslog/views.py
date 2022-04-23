@@ -24,6 +24,8 @@ def add_listing(request):
 
 def edit_profile(request):
     context = {}
+    username = request.user.username
+    context['username'] = username
     f = forms.EditProfile()
     context['form'] = f
     return render(request, 'saleslog/edit_profile.html', context=context)
