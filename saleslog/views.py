@@ -4,20 +4,25 @@ from django.urls import reverse
 
 from saleslog import forms
 from saleslog.inputlogic.profileinput import ProfileInput
+from saleslog.models import Character
+from saleslog.util import usercharacter
 from saleslog.util import time
 
 CHARACTER_NAME = 'character_name'
 # Create your views here.
 def index(request):
     context = {}
+    context[CHARACTER_NAME] = usercharacter.getAssociatedCharacterName(request.user)
     return render(request, 'saleslog/index.html', context=context)
 
 def view_listings(request):
     context = {}
+    context[CHARACTER_NAME] = usercharacter.getAssociatedCharacterName(request.user)
     return render(request, 'saleslog/view_listings.html', context=context)
 
 def add_listing(request):
     context={}
+    context[CHARACTER_NAME] = usercharacter.getAssociatedCharacterName(request.user)
     f = forms.AddListing(initial={
                                     'quantity' : 1,
                                     'total_price' : 1,

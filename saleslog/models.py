@@ -3,7 +3,7 @@ from django.core.validators import MinValueValidator
 from django.db import models
 
 from saleslog.util import time
-import datetime
+
 
 class AbstractThing(models.Model):
     name = models.CharField(max_length=255, unique=True)
@@ -23,9 +23,9 @@ class Character(AbstractThing):
 
 class Guild(AbstractThing):
     """
-    Name of a guild.
+    Name and location of a guild.
     """
-    store_location = models.OneToOneField('Location', blank=True, null=True,
+    store_location = models.ForeignKey('Location', blank=True, null=True,
                                                     on_delete=models.DO_NOTHING)
 
 class Item(AbstractThing):
@@ -79,18 +79,6 @@ class Sale(models.Model):
     """
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
     net_price = models.PositiveIntegerField(validators=[MinValueValidator(1)])
-
-class UserCharacter(models.Model):
-    """
-    Map of users to characters.
-
-    user      auth User object.
-    character Associated character.
-    """
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    character = models.ForeignKey(Character, on_delete=models.CASCADE)
-    
-
 
 
 
