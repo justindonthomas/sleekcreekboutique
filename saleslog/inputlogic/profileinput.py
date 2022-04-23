@@ -18,9 +18,8 @@ class ProfileInput(object):
         storeLoc, _ = Location.objects.get_or_create(name=self.store_location)
         guild, _ = Guild.objects.get_or_create(name=self.guild,
                                             store_location=storeLoc)
-        character, _ =  Character.objects.get_or_create(name=self.character_name)
+        character, _ =  Character.objects.get_or_create(name=self.character_name, user=user)
         character.guild.add(guild)
-        uc = UserCharacter(user=user, character=character)
-        uc.save()
+        character.save()
 
         

@@ -15,15 +15,17 @@ class Character(AbstractThing):
     """
     Name of a character.
     """
-    guild = models.ManyToManyField('Guild', blank=True, null=True)
+    guild = models.ManyToManyField('Guild')
+    user = models.OneToOneField(User, on_delete=models.CASCADE,
+                                                        blank=True,
+                                                        null=True)
     
 
 class Guild(AbstractThing):
     """
     Name of a guild.
     """
-    store_location = models.ForeignKey('Location', blank=True, null=True,
-                                                    unique=True,
+    store_location = models.OneToOneField('Location', blank=True, null=True,
                                                     on_delete=models.DO_NOTHING)
 
 class Item(AbstractThing):
