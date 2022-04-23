@@ -1,13 +1,23 @@
-from saleslog.models import Character
+from saleslog.models import Character, Guild, Location
 
-def getAssociatedCharacterName(user):
-    """
-    Get character name associated with the user.
-    """
-    if user.is_anonymous:
-        return "None"
-    try:
-        character = Character.objects.get(user=user)
-        return character.name
-    except Character.DoesNotExist:
-        return "None"
+class UserCharacter(object):
+    def __init__(self):
+        self.characterName = None
+        self.guildNames = None
+        self.guildLocations = None
+
+    def initialize(self, user):
+        """
+        Initialize character info fields.
+
+        return false if character cannot be found.
+        """
+        try:
+            character = Character.objects.get(user=user)
+ 
+        except:
+            return False
+
+        self.characterName = character.name
+
+        return True
