@@ -4,6 +4,8 @@ def getAssociatedCharacterName(user):
     """
     Get character name associated with the user.
     """
+    if user.is_anonymous:
+        return "None"
     try:
         character = Character.objects.get(user=user)
         return character.name

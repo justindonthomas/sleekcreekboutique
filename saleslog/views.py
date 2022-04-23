@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -20,6 +21,7 @@ def view_listings(request):
     context[CHARACTER_NAME] = usercharacter.getAssociatedCharacterName(request.user)
     return render(request, 'saleslog/view_listings.html', context=context)
 
+@login_required
 def add_listing(request):
     context={}
     context[CHARACTER_NAME] = usercharacter.getAssociatedCharacterName(request.user)

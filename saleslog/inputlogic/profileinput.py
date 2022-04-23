@@ -27,7 +27,7 @@ class ProfileInput(object):
             character.full_clean()
         except ValidationError as e:
             return False
-
+        character.save()
         character.guild.add(guild)
         character.save()
 
