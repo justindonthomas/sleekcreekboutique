@@ -17,6 +17,8 @@ class ProfileInput(object):
         Insert records for auth_user object user.
         """
         guild, _ = Guild.objects.get_or_create(name=self.guild)
+        if user.is_anonymous:
+            return False
         try:
             character = Character.objects.get(user=user)
             character.name = self.character_name

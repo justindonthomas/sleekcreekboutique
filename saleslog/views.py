@@ -33,6 +33,7 @@ def add_listing(request):
     context['form'] = f
     return render(request, 'saleslog/add_listing.html', context=context)
 
+@login_required
 def edit_profile(request):
     context = {}
     username = request.user.username
