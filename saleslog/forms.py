@@ -19,3 +19,7 @@ class EditProfile(forms.Form):
     character_name = forms.CharField()
     guild = forms.CharField(required=False)
     store_location = forms.CharField(required=False)
+
+    CHARACTER_NAME ='character_name'
+    GUILD = 'guild'
+    STORE_LOCATION = 'store_location'

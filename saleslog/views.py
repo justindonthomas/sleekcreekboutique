@@ -1,6 +1,9 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
 
 from saleslog import forms
+from saleslog.inputlogic.profileinput import ProfileInput
 from saleslog.util import time
 
 # Create your views here.
@@ -26,6 +29,19 @@ def edit_profile(request):
     context = {}
     username = request.user.username
     context['username'] = username
-    f = forms.EditProfile()
+    f = forms.EditProfile(initial={
+                            'character_name' : 'A name',
+                            'guild' : 'A guild',
+                            'store_location' : 'A location',
+                        })
     context['form'] = f
     return render(request, 'saleslog/edit_profile.html', context=context)
+
+def edit_profile_submit(request):
+    user = request.user
+    f = forms.EditProfile(request.POST)
+    if f.is_valid():
+        data = f.cleaned_data
+        dataIn = ProfileInput(data)
+        dataIn.insertRecords(user)
+        return HttpResponseRedirect(reverse('saleslog:edit_profile'))
