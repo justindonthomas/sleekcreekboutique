@@ -6,6 +6,7 @@ from saleslog import forms
 from saleslog.inputlogic.profileinput import ProfileInput
 from saleslog.util import time
 
+CHARACTER_NAME = 'character_name'
 # Create your views here.
 def index(request):
     context = {}
