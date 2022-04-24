@@ -23,5 +23,9 @@ class GuildInput(forms.Form):
     """
     Form for editing or adding guilds
     """
+    GUILD_NAME = 'guild'
+    LOCATION_NAME = 'store_location'
+    IS_PRIMARY = 'is_primary'
     guild = forms.CharField()
     store_location = forms.CharField(required=False)
+    is_primary = forms.BooleanField(required=False)

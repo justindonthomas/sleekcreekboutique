@@ -52,10 +52,11 @@ def edit_profile(request):
     charInfo = UserCharacterProfile(request.user)
 
     # If character exists, get form with initial info.
-    f = charInfo.getCharacterNameForm()
+    cNameForm = charInfo.getCharacterNameForm()
         
-    context['f_character_name'] = f
+    context['f_character_name'] = cNameForm
     # build guild form.
+    context['f_guilds'] = charInfo.getGuildFormSet()
     return render(request, 'saleslog/edit_profile.html', context=context)
 
 @login_required

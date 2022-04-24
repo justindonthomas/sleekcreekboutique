@@ -1,4 +1,6 @@
-from saleslog.forms import EditCharacterName
+from django.forms import formset_factory
+
+from saleslog.forms import EditCharacterName, GuildInput
 from saleslog.models import Character, CharacterGuild, Guild, Location
 
 
@@ -7,8 +9,9 @@ class UserCharacterProfile(object):
     Get character name, and a structure containing guild name and loction for 
     all guilds associated with the character.
     """
-    GUILD_NAME = 'name'
-    STORE_NAME = 'store_location__name'
+    GUILD_NAME = 'guild__name'
+    STORE_LOCATION = 'guild__store_location__name'
+    IS_PRIMARY = 'primary'
 
     def __init__(self, user):
         """
@@ -23,7 +26,8 @@ class UserCharacterProfile(object):
             self._guilds = CharacterGuild.objects.filter(character=character)   \
                                             .select_related('store_location')  \
                                             .values('guild__name',
-                                                    'guild__store_location__name')
+                                                    'guild__store_location__name',
+                                                    'primary')
             print(self._guilds)
         except (Character.DoesNotExist, TypeError):
             self._characterName = None
@@ -61,3 +65,32 @@ class UserCharacterProfile(object):
         else:
             f = EditCharacterName()
         return f
+
+    def getGuildFormSet(self):
+        """
+        Create and return a formset of guild information associated with the
+        character.
+
+        return      Form set of GuildInput if there are guilds associated with
+                    this user/character, otherwise return None
+        """
+        GuildFormSet = formset_factory(GuildInput)
+        if not self._guilds:
+            return GuildFormSet()
+        
+        GUILD_NAME = UserCharacterProfile.GUILD_NAME
+        STORE_LOC = UserCharacterProfile.STORE_LOCATION
+        IS_PRIMARY = UserCharacterProfile.IS_PRIMARY
+        setInitials = []
+        for entry in self._guilds:
+            formInitial = {
+                GuildInput.GUILD_NAME : entry[GUILD_NAME],
+                GuildInput.LOCATION_NAME : entry[STORE_LOC],
+                GuildInput.IS_PRIMARY : entry[IS_PRIMARY],
+            }
+            setInitials.append(formInitial)
+        return GuildFormSet(initial=setInitials)
+
+
+
+        
