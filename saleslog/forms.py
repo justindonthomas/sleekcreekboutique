@@ -12,22 +12,12 @@ class AddListing(forms.Form):
     location = forms.CharField(required=False)
     character = forms.CharField(required=False)
 
-class EditProfile(forms.Form):
-    """
-    Form for editing character profile.
-    """
-    character_name = forms.CharField()
-    guild = forms.CharField(required=False)
-    store_location = forms.CharField(required=False)
-
-    CHARACTER_NAME ='character_name'
-    GUILD = 'guild'
-    STORE_LOCATION = 'store_location'
-
 class EditCharacterName(forms.Form):
     """
     Form for editing character name.
     """
+    CHARACTER_NAME = 'character_name'
+    character_name = forms.CharField()
 
 class GuildInput(forms.Form):
     """

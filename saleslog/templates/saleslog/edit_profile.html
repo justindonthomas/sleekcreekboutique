@@ -4,10 +4,10 @@
 
 <div class="col-md-auto">
     <h3> Editing Profile for {{ username }}:</h3>
-    <form action="{% url 'saleslog:edit_profile_submit' %}" method="post" class="py-3">
+    <form action="{% url 'saleslog:edit_character_name_submit' %}" method="post" class="py-3">
         {% csrf_token %}
         <table>
-            {{ form }}
+            {{ f_character_name }}
         </table>
         <div class="row d-flex justify-content-center py-3">
             <div class="col text-center">

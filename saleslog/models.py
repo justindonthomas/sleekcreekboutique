@@ -25,7 +25,7 @@ class CharacterGuild(models.Model):
     """
     character = models.ForeignKey(Character, on_delete=models.CASCADE)
     guild = models.ForeignKey('Guild', on_delete=models.CASCADE)
-    primary = models.BooleanField()
+    primary = models.BooleanField(default=False)
 
     class Meta:
         constraints = [models.UniqueConstraint(fields=['character', 'guild'],

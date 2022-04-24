@@ -7,7 +7,7 @@ from saleslog import forms
 from saleslog.inputlogic.profileinput import ProfileInput
 from saleslog.models import Character
 from saleslog.util import time
-from saleslog.util.usercharacter import UserCharacter
+from saleslog.util.usercharacterprofile import UserCharacterProfile
 
 
 CHARACTER_NAME = 'character_name'
@@ -15,30 +15,23 @@ CHARACTER_NAME = 'character_name'
 def index(request):
     context = {}
 
-    charInfo = UserCharacter()
-    if charInfo.initialize(request.user):
-        context[CHARACTER_NAME] = charInfo.characterName
-    else:
-        context[CHARACTER_NAME] = "None."
+    charInfo = UserCharacterProfile(request.user)
+    context[CHARACTER_NAME] = charInfo.characterName
     return render(request, 'saleslog/index.html', context=context)
 
 def view_listings(request):
     context = {}
-    charInfo = UserCharacter()
-    if charInfo.initialize(request.user):
-        context[CHARACTER_NAME] = charInfo.characterName
-    else:
-        context[CHARACTER_NAME] = "None."
+    charInfo = UserCharacterProfile(request.user)
+    context[CHARACTER_NAME] = charInfo.characterName
+
     return render(request, 'saleslog/view_listings.html', context=context)
 
 @login_required
 def add_listing(request):
     context={}
-    charInfo = UserCharacter()
-    if charInfo.initialize(request.user):
-        context[CHARACTER_NAME] = charInfo.characterName
-    else:
-        context[CHARACTER_NAME] = "None."
+    charInfo = UserCharacterProfile(request.user)
+    context[CHARACTER_NAME] = charInfo.characterName
+
     f = forms.AddListing(initial={
                                     'quantity' : 1,
                                     'total_price' : 1,
@@ -49,26 +42,31 @@ def add_listing(request):
 
 @login_required
 def edit_profile(request):
+    """
+    Edit profile form page.
+    """
     context = {}
+    # Get character info
     username = request.user.username
     context['username'] = username
-    charInfo = UserCharacter()
-    success = charInfo.initialize(request.user)
-    if success:
-        f = forms.EditProfile(initial={
-                                'character_name' : charInfo.characterName,
-                            })
-    else:
-        f = forms.EditProfile()
+    charInfo = UserCharacterProfile(request.user)
+
+    # If character exists, get form with initial info.
+    f = charInfo.getCharacterNameForm()
         
-    context['form'] = f
+    context['f_character_name'] = f
+    # build guild form.
     return render(request, 'saleslog/edit_profile.html', context=context)
 
-def edit_profile_submit(request):
+@login_required
+def edit_character_name_submit(request):
+    """
+    Submit changes to character name associated with request.user
+    """
     user = request.user
-    f = forms.EditProfile(request.POST)
+    f = forms.EditCharacterName(request.POST)
     if f.is_valid():
         data = f.cleaned_data
         dataIn = ProfileInput(data)
-        dataIn.insertRecords(user)
+        dataIn.insertCharacterName(user)
         return HttpResponseRedirect(reverse('saleslog:edit_profile'))
