@@ -15,11 +15,21 @@ class Character(AbstractThing):
     """
     Name of a character.
     """
-    guild = models.ManyToManyField('Guild')
     user = models.OneToOneField(User, on_delete=models.CASCADE,
                                                         blank=True,
                                                         null=True)
-    
+
+class CharacterGuild(models.Model):
+    """
+    Associate chacter with guild.
+    """
+    character = models.ForeignKey(Character, on_delete=models.CASCADE)
+    guild = models.ForeignKey('Guild', on_delete=models.CASCADE)
+    primary = models.BooleanField()
+
+    class Meta:
+        constraints = [models.UniqueConstraint(fields=['character', 'guild'],
+                                                name='character_guild_unique')]
 
 class Guild(AbstractThing):
     """

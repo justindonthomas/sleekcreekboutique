@@ -23,3 +23,15 @@ class EditProfile(forms.Form):
     CHARACTER_NAME ='character_name'
     GUILD = 'guild'
     STORE_LOCATION = 'store_location'
+
+class EditCharacterName(forms.Form):
+    """
+    Form for editing character name.
+    """
+
+class GuildInput(forms.Form):
+    """
+    Form for editing or adding guilds
+    """
+    guild = forms.CharField()
+    store_location = forms.CharField(required=False)
