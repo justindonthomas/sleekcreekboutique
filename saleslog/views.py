@@ -7,7 +7,7 @@ from saleslog import forms
 from saleslog.inputlogic.profileinput import ProfileInput
 from saleslog.models import Character
 from saleslog.util import time
-from saleslog.util.usercharacterprofile import UserCharacterProfile
+from saleslog.outputlogic.usercharacterprofile import UserCharacterProfile
 
 
 CHARACTER_NAME = 'character_name'

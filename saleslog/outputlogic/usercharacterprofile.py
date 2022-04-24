@@ -1,13 +1,13 @@
 from django.forms import formset_factory
 
 from saleslog.forms import EditCharacterName, GuildInput
-from saleslog.models import Character, CharacterGuild, Guild, Location
+from saleslog.models import Character, CharacterGuild
 
 
 class UserCharacterProfile(object):
     """
-    Get character name, and a structure containing guild name and loction for 
-    all guilds associated with the character.
+    Get character name, and a structure containing guild name and loction name
+    for all guilds associated with the character.
     """
     GUILD_NAME = 'guild__name'
     STORE_LOCATION = 'guild__store_location__name'
