@@ -57,8 +57,6 @@ def edit_profile(request):
     if success:
         f = forms.EditProfile(initial={
                                 'character_name' : charInfo.characterName,
-                                'guild' : charInfo.guildNames,
-                                'store_location' : charInfo.guildLocations,
                             })
     else:
         f = forms.EditProfile()

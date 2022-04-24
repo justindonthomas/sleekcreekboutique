@@ -1,6 +1,6 @@
 from django.core.exceptions import ValidationError
 from saleslog.forms import EditProfile
-from saleslog.models import Character, Guild
+from saleslog.models import Character, Guild, Location
 
 class ProfileInput(object):
 
@@ -16,7 +16,6 @@ class ProfileInput(object):
         """
         Insert records for auth_user object user.
         """
-        guild, _ = Guild.objects.get_or_create(name=self.guild)
         if user.is_anonymous:
             return False
         try:
@@ -30,7 +29,13 @@ class ProfileInput(object):
         except ValidationError as e:
             return False
         character.save()
-        character.guild.add(guild)
+        if self.guild:
+            guild, _ = Guild.objects.get_or_create(name=self.guild)
+            if self.store_location:
+                loc,_ = Location.objects.get_or_create(name=self.store_location)
+                guild.store_location=loc
+                guild.save()
+            character.guild.add(guild)
         character.save()
 
         
