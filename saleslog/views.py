@@ -4,8 +4,7 @@ from django.shortcuts import render
 from django.urls import reverse
 
 from saleslog import forms
-from saleslog.inputlogic.profileinput import ProfileInput
-from saleslog.models import Character
+from saleslog.inputlogic.characternameinput import CharacterNameInput
 from saleslog.util import time
 from saleslog.outputlogic.usercharacterprofile import UserCharacterProfile
 
@@ -65,9 +64,19 @@ def edit_character_name_submit(request):
     Submit changes to character name associated with request.user
     """
     user = request.user
-    f = forms.EditCharacterName(request.POST)
-    if f.is_valid():
-        data = f.cleaned_data
-        dataIn = ProfileInput(data)
-        dataIn.insertCharacterName(user)
-        return HttpResponseRedirect(reverse('saleslog:edit_profile'))
+    characterNameInput = CharacterNameInput(user, request.POST, forms.EditCharacterName)
+    
+    if characterNameInput.insertCharacterName():
+        #Success
+        print('Success')
+    else:
+        print('Failure')
+    
+
+    return HttpResponseRedirect(reverse('saleslog:edit_profile'))
+
+def edit_guilds_submit(request):
+    """
+    Submit changes to the guild
+    """
+    user = request.user

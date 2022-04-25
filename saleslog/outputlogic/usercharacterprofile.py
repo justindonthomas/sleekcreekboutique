@@ -74,13 +74,15 @@ class UserCharacterProfile(object):
         return      Form set of GuildInput if there are guilds associated with
                     this user/character, otherwise return None
         """
-        GuildFormSet = formset_factory(GuildInput)
+        GuildFormSet = formset_factory(GuildInput, max_num=5, absolute_max=5,can_delete=True)
         if not self._guilds:
+            GuildFormSet = formset_factory(GuildInput, max_num=5, absolute_max=5,can_delete=True)
             return GuildFormSet()
         
         GUILD_NAME = UserCharacterProfile.GUILD_NAME
         STORE_LOC = UserCharacterProfile.STORE_LOCATION
         IS_PRIMARY = UserCharacterProfile.IS_PRIMARY
+        GuildFormSet = formset_factory(GuildInput, max_num=5, absolute_max=5,can_delete=True)
         setInitials = []
         for entry in self._guilds:
             formInitial = {
@@ -89,7 +91,8 @@ class UserCharacterProfile(object):
                 GuildInput.IS_PRIMARY : entry[IS_PRIMARY],
             }
             setInitials.append(formInitial)
-        return GuildFormSet(initial=setInitials)
+            
+        return GuildFormSet()
 
 
 
