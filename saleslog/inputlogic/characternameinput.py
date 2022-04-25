@@ -12,11 +12,18 @@ class CharacterNameInput(FormProcessor):
     user            request.user
     postObject      request.post
     FormType        Class of form to process.
+
+    Members:
+
+    user            request.user
+    cleanedData     Cleaned data from form.
     """
     
     def insertCharacterName(self):
         """
         Insert records for auth_user object user.
+
+        return      True on success
         """
         if self.cleanedData:
             character, _ = Character.objects.get_or_create(user=self.user)

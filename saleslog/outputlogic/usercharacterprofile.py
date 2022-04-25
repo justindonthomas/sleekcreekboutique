@@ -28,7 +28,6 @@ class UserCharacterProfile(object):
                                             .values('guild__name',
                                                     'guild__store_location__name',
                                                     'primary')
-            print(self._guilds)
         except (Character.DoesNotExist, TypeError):
             self._characterName = None
             self._guilds = None
@@ -93,6 +92,12 @@ class UserCharacterProfile(object):
             setInitials.append(formInitial)
             
         return GuildFormSet()
+
+    def getBlankGuildFormSet():
+        """
+        Class method to get a blank guild input formset
+        """
+        return formset_factory(GuildInput, max_num=5, absolute_max=5,can_delete=True)
 
 
 

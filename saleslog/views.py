@@ -5,6 +5,7 @@ from django.urls import reverse
 
 from saleslog import forms
 from saleslog.inputlogic.characternameinput import CharacterNameInput
+from saleslog.inputlogic.characterguildinput import CharacterGuildInput
 from saleslog.util import time
 from saleslog.outputlogic.usercharacterprofile import UserCharacterProfile
 
@@ -75,8 +76,12 @@ def edit_character_name_submit(request):
 
     return HttpResponseRedirect(reverse('saleslog:edit_profile'))
 
+@login_required
 def edit_guilds_submit(request):
     """
     Submit changes to the guild
     """
     user = request.user
+    characterGuildInput = CharacterGuildInput(user, request.POST, UserCharacterProfile.getBlankGuildFormSet())
+    characterGuildInput.inputCharacterGuilds()
+    return HttpResponseRedirect(reverse('saleslog:edit_profile'))

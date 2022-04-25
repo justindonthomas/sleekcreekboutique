@@ -15,6 +15,10 @@
                 <button action="reset" class="btn btn-primary">Reset</button>
             </div>
         </div>
+        
+    </form>
+    <form action="{% url 'saleslog:edit_guilds_submit' %}" method="post" class="py-3">
+    {% csrf_token %}
         <table>
             {{ f_guilds }}
         </table>
