@@ -73,7 +73,6 @@ class UserCharacterProfile(object):
         return      Form set of GuildInput if there are guilds associated with
                     this user/character, otherwise return None
         """
-        GuildFormSet = formset_factory(GuildInput, max_num=5, absolute_max=5,can_delete=True)
         if not self._guilds:
             GuildFormSet = formset_factory(GuildInput, max_num=5, absolute_max=5,can_delete=True)
             return GuildFormSet()
@@ -91,7 +90,7 @@ class UserCharacterProfile(object):
             }
             setInitials.append(formInitial)
             
-        return GuildFormSet()
+        return GuildFormSet(initial=setInitials)
 
     def getBlankGuildFormSet():
         """

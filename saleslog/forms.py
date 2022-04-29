@@ -28,4 +28,4 @@ class GuildInput(forms.Form):
     IS_PRIMARY = 'is_primary'
     guild = forms.CharField()
     store_location = forms.CharField(required=False)
-    is_primary = forms.BooleanField(required=False)
+    # is_primary = forms.BooleanField(required=False)
