@@ -56,7 +56,7 @@ class CharacterGuildInput(FormProcessor):
                         guild.save()
                         charGuild,_ = CharacterGuild.objects.get_or_create(guild=guild,
                                                                 character=character)
-                        charGuild.is_primary = item[GuildInput.IS_PRIMARY]
+                        charGuild.primary = item[GuildInput.IS_PRIMARY]
                         try:
                             charGuild.full_clean()
                             charGuild.save()

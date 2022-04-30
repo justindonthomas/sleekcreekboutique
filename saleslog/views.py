@@ -7,6 +7,7 @@ from saleslog import forms
 from saleslog.inputlogic.characternameinput import CharacterNameInput
 from saleslog.inputlogic.characterguildinput import CharacterGuildInput
 from saleslog.outputlogic.guildformbuilder import GuildFormBuilder
+from saleslog.outputlogic.listingformbuilder import ListingFormBuilder
 from saleslog.outputlogic.nameformbuilder import NameFormBuilder
 from saleslog.util import time
 from saleslog.outputlogic.usercharacterprofile import UserCharacterProfile
@@ -30,15 +31,10 @@ def view_listings(request):
 @login_required
 def add_listing(request):
     context={}
-    charInfo = UserCharacterProfile(user=request.user)
+    charInfo = ListingFormBuilder(user=request.user)
     context[CHARACTER_NAME] = charInfo.characterName
 
-    f = forms.AddListing(initial={
-                                    'quantity' : 1,
-                                    'total_price' : 1,
-                                    'end_date' : time.todayPlus30()
-                                })
-    context['form'] = f
+    context['form'] = charInfo.getAddListingForm()
     return render(request, 'saleslog/add_listing.html', context=context)
 
 @login_required
