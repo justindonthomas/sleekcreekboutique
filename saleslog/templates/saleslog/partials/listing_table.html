@@ -13,17 +13,31 @@
     </tr>
   </thead>
   <tbody>
-  {% if listing %}
-  <tr>
-    <td>A Thing</td>
-    <td>2</td>
-    <td>5</td>
-    <td>10</td>
-    <td>Today</td>
-    <td>Me</td>
-    <td>My Guild</td>
-    <td>Here</td>
-  </tr>
+  {% if listings %}
+    {% comment %}
+        context listings fields:
+        'listings'
+        'item'
+        'qty'
+        'unit_price'
+        'total_price'
+        'end_date'
+        'character'
+        'guild'
+        'loc'
+    {% endcomment %}
+    {% for listing in listings %}
+    <tr>
+        <td>{{ listing.item }}</td>
+        <td>{{ listing.qty }}</td>
+        <td>{{ listing.unit_price }}</td>
+        <td>{{ listing.total_price }}</td>
+        <td>{{ listing.end_date }}</td>
+        <td>{{ listing.character }}</td>
+        <td>{{ listing.guild }}</td>
+        <td>{{ listing.loc }}</td>
+    </tr>
+    {% endfor %}
   {% else %}
     <tr>
       <td colspan="100%"> No Listings Found.</td>

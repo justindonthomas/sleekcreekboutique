@@ -8,9 +8,8 @@ entered listings.
 affiliated with, supported by, or authorized by Bethesda Software, Zenimax, et al.*
 
 ## Development Status
-Development is in the very beginning stages, basic functionality is incomplete.
-
-Currently working on creating a user-character/gamertag profile.
+Users are able to add listings for arbitrary characters and view their own active
+listings.
 
 ## Requirements
 * Python

@@ -9,6 +9,7 @@ from saleslog.inputlogic.characterguildinput import CharacterGuildInput
 from saleslog.inputlogic.listinginput import ListingInput
 from saleslog.outputlogic.guildformbuilder import GuildFormBuilder
 from saleslog.outputlogic.listingformbuilder import ListingFormBuilder
+from saleslog.outputlogic.listinggetter import ListingGetter
 from saleslog.outputlogic.nameformbuilder import NameFormBuilder
 from saleslog.util import time
 from saleslog.outputlogic.usercharacterprofile import UserCharacterProfile
@@ -20,13 +21,18 @@ def index(request):
     context = {}
     charInfo = UserCharacterProfile(user=request.user)
     context[CHARACTER_NAME] = charInfo.characterName
+    listingGetter = ListingGetter()
+    if charInfo.character:
+        context[ListingGetter.C_LISTINGS] = listingGetter.getActiveListingsForCharacter(charInfo.character)
     return render(request, 'saleslog/index.html', context=context)
 
 def view_listings(request):
     context = {}
     charInfo = UserCharacterProfile(user=request.user)
     context[CHARACTER_NAME] = charInfo.characterName
-
+    listingGetter = ListingGetter()
+    if charInfo.character:
+        context[ListingGetter.C_LISTINGS] = listingGetter.getActiveListingsForCharacter(charInfo.character)
     return render(request, 'saleslog/view_listings.html', context=context)
 
 @login_required
@@ -34,8 +40,10 @@ def add_listing(request):
     context={}
     charInfo = ListingFormBuilder(user=request.user)
     context[CHARACTER_NAME] = charInfo.characterName
-
     context['form'] = charInfo.getAddListingForm()
+    listingGetter = ListingGetter()
+    if charInfo.character:
+        context[ListingGetter.C_LISTINGS] = listingGetter.getActiveListingsForCharacter(charInfo.character)
     return render(request, 'saleslog/add_listing.html', context=context)
 
 @login_required
