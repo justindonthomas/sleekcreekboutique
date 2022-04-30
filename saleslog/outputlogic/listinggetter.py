@@ -35,7 +35,7 @@ class ListingGetter(object):
         """
         listings = Listing.objects.filter(character=character,
                                         end_date__gte=time.today())            \
-                                        .order_by('-end_date')                 \
+                                        .order_by('end_date')                 \
                                         .select_related('item')                \
                                         .select_related('location')            \
                                         .select_related('guild')               \
