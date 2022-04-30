@@ -19,6 +19,22 @@ class CharacterGuildInput(FormProcessor):
     user            request.user
     cleanedData     Cleaned data from form.
     """
+    def __init__(self, user, postObject, FormType):
+        """
+        Receive a request.post and store cleaned data.
+
+        Constructor args:
+
+        user            request.user
+        postObject      request.post
+        FormType        Class of form to process.
+
+        Members:
+
+        user            request.user
+        cleanedData     Cleaned data from form.
+        """
+        super().__init__(user, postObject, FormType)
 
     def inputCharacterGuilds(self):
         """
