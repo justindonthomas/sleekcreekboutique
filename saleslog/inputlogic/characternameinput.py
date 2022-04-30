@@ -7,12 +7,6 @@ class CharacterNameInput(FormProcessor):
     """
     Receive a request.post for a character name change or creation input
 
-    super constructor args:
-    
-    user            request.user
-    postObject      request.post
-    FormType        Class of form to process.
-
     Members:
 
     user            request.user
@@ -34,7 +28,7 @@ class CharacterNameInput(FormProcessor):
         cleanedData     Cleaned data from form.
         """
         super().__init__(user, postObject, FormType)
-        
+
     def insertCharacterName(self):
         """
         Insert records for auth_user object user.

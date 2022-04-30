@@ -6,6 +6,7 @@ from django.urls import reverse
 from saleslog import forms
 from saleslog.inputlogic.characternameinput import CharacterNameInput
 from saleslog.inputlogic.characterguildinput import CharacterGuildInput
+from saleslog.inputlogic.listinginput import ListingInput
 from saleslog.outputlogic.guildformbuilder import GuildFormBuilder
 from saleslog.outputlogic.listingformbuilder import ListingFormBuilder
 from saleslog.outputlogic.nameformbuilder import NameFormBuilder
@@ -36,6 +37,12 @@ def add_listing(request):
 
     context['form'] = charInfo.getAddListingForm()
     return render(request, 'saleslog/add_listing.html', context=context)
+
+@login_required
+def add_listing_submit(request):
+    listingProcessor = ListingInput(request.user, request.POST, forms.AddListing)
+    listingProcessor.insertListing()
+    return HttpResponseRedirect(reverse('saleslog:add_listing'))
 
 @login_required
 def edit_profile(request):
