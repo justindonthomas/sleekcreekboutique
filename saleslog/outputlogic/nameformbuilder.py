@@ -16,8 +16,6 @@ class NameFormBuilder(UserCharacterProfile):
                         'primar':is primary guild
                     }
 
-    Constructor:
-
     Constructor initializes fields to existing values or None.  If a user is
     provided, there will be an attempt to query the database for an
     associated character and populate the members that way.
@@ -28,6 +26,19 @@ class NameFormBuilder(UserCharacterProfile):
     user        request.user from view.
     other       A different UserCharacterProfile
     """
+    def __init__(self, user=None, other=None):
+        """
+        Constructor initializes fields to existing values or None.  If a user is
+        provided, there will be an attempt to query the database for an
+        associated character and populate the members that way.
+
+        If another UserCharacterProfile is provided and no user is provided,
+        the members will be populated by reference to other.
+
+        user        request.user from view.
+        other       A different UseerCharacterProfile
+        """
+        super().__init__(user, other)
 
     def getCharacterNameForm(self):
         """
