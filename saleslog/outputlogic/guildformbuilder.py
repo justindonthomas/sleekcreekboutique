@@ -43,6 +43,7 @@ class GuildFormBuilder(UserCharacterProfile):
             GuildFormSet = formset_factory(GuildInput, max_num=5, absolute_max=5,can_delete=True)
             return GuildFormSet()
         
+        GUILD_ID = UserCharacterProfile.GUILD_ID
         GUILD_NAME = UserCharacterProfile.GUILD_NAME
         STORE_LOC = UserCharacterProfile.STORE_LOCATION
         IS_PRIMARY = UserCharacterProfile.IS_PRIMARY
@@ -50,6 +51,7 @@ class GuildFormBuilder(UserCharacterProfile):
         setInitials = []
         for entry in self._guilds:
             formInitial = {
+                GuildInput.GUILD_ID : entry[GUILD_ID],
                 GuildInput.GUILD_NAME : entry[GUILD_NAME],
                 GuildInput.LOCATION_NAME : entry[STORE_LOC],
                 GuildInput.IS_PRIMARY : entry[IS_PRIMARY],

@@ -19,6 +19,7 @@ class UserCharacterProfile(object):
                         'primar':is primary guild
                     }
     """
+    GUILD_ID = 'guild__id'
     GUILD_NAME = 'guild__name'
     STORE_LOCATION = 'guild__store_location__name'
     IS_PRIMARY = 'primary'
@@ -41,7 +42,8 @@ class UserCharacterProfile(object):
                 self._characterName = self.character.name
                 self._guilds = CharacterGuild.objects.filter(character=self.character)\
                                         .select_related('store_location')      \
-                                        .values('guild__name',
+                                        .values('guild__id',
+                                                'guild__name',
                                                 'guild__store_location__name',
                                                 'primary')
             except (Character.DoesNotExist, TypeError):

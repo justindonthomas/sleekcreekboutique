@@ -34,19 +34,18 @@ class CharacterGuildInput(FormProcessor):
         """
         Edit or create character guild entries.
         """
-        # Data: {'guild': 'a', 'store_location': 'b', 'is_primary': False, 'DELETE': False}
+        # Data: {'entry_id': 16, 'guild': 'The Best Guild', 'store_location': 'Rawlka', 'is_primary': True, 'DELETE': False}
         try:
             character = Character.objects.get(user=self.user)
         except (Character.DoesNotExist, MultipleObjectsReturned) as e:
             print(e)
             return False
-        print(self.cleanedData)
         if self.cleanedData:
             for item in self.cleanedData:
                 if item:
-                    if item['DELETE']:
+                    if item['DELETE'] and item[GuildInput.GUILD_ID]:
                         try:
-                            guild = Guild.objects.get(name__iexact=item[GuildInput.GUILD_NAME])
+                            guild = Guild.objects.get(id=item[GuildInput.GUILD_ID])
                         except (Guild.DoesNotExist, MultipleObjectsReturned) as e:
                             print(e)
                             return False
@@ -58,11 +57,15 @@ class CharacterGuildInput(FormProcessor):
                             print(e)
                             return False
                     else:
-                        
-                        guild,_ = Guild.objects.get_or_create(name=item[GuildInput.GUILD_NAME])
+                        if item[GuildInput.GUILD_ID]:
+                            guild = Guild.objects.get(id=item[GuildInput.GUILD_ID])
+                        else:
+                            guild,_ = Guild.objects.get_or_create(name=item[GuildInput.GUILD_NAME])
                         if item[GuildInput.LOCATION_NAME] and not item[GuildInput.LOCATION_NAME].isspace():
                             location,_ = Location.objects.get_or_create(name=item[GuildInput.LOCATION_NAME])
                             guild.store_location = location
+
+                        guild.name=item[GuildInput.GUILD_NAME]
                         guild.save()
                         charGuild,_ = CharacterGuild.objects.get_or_create(guild=guild,
                                                                 character=character)
